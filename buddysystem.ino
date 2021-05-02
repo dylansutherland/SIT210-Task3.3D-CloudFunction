@@ -10,29 +10,36 @@ void setup()
 
 void loop() 
 {
-    motion = rand()%2;
+    motion = rand()%3;
     if(motion == 1) Particle.publish("Deakin_RIOT_SIT210_Photon_Buddy", "wave");
+    else if(motion == 2) Particle.publish("Deakin_RIOT_SIT210_Photon_Buddy", "pat");
     else if(motion == 0) Particle.publish("Deakin_RIOT_SIT210_Photon_Buddy", "nothing");
     
     Particle.subscribe("Deakin_RIOT_SIT210_Photon_Buddy", myHandler);
-    delay(10000);
+    delay(20000);
 }
 
 void myHandler(const char *event, const char *data)
 {
     if(strcmp(data, "wave") == 0)
     {
-        flash();
-        flash();
-        flash();
+        flash(100);
+        flash(100);
+        flash(100);
+    }
+    else if(strcmp(data, "pat") == 0)
+    {
+        flash(3000);
+        flash(3000);
+        flash(3000);
     }
 }
 
 
-void flash()
+void flash(int time)
 {
     digitalWrite(led, HIGH);
-	delay(100);
+	delay(time);
 	digitalWrite(led, LOW);
-	delay(100);
+	delay(1000);
 }
