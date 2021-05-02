@@ -10,12 +10,13 @@ void setup()
 
 void loop() 
 {
+    Particle.subscribe("Deakin_RIOT_SIT210_Photon_Buddy", myHandler);
+    
     motion = rand()%3;
     if(motion == 1) Particle.publish("Deakin_RIOT_SIT210_Photon_Buddy", "wave");
     else if(motion == 2) Particle.publish("Deakin_RIOT_SIT210_Photon_Buddy", "pat");
     else if(motion == 0) Particle.publish("Deakin_RIOT_SIT210_Photon_Buddy", "nothing");
     
-    Particle.subscribe("Deakin_RIOT_SIT210_Photon_Buddy", myHandler);
     delay(20000);
 }
 
@@ -43,3 +44,4 @@ void flash(int time)
 	digitalWrite(led, LOW);
 	delay(1000);
 }
+
